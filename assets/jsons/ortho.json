@@ -1,0 +1,363 @@
+{
+  "ortho_joints": {
+    "shoulder": {
+      "clinical_pattern_recognition": {
+        "clinical_practice_guidelines": {
+          "all_diagnoses": [
+            {
+              "name": "Sub-Acromial Pain Syndrome",
+              "previous_names": [
+                "Shoulder Impingement"
+              ],
+              "description": "Shoulder pain with muscle power deficits",
+              "prevalence": {
+                "prevalence_statistics": [
+                  "44% to 65% of all conditions that cause shoulder pain",
+                  "Most frequent cause of visits to a physician's office",
+                  "Most common shoulder disorder"
+                ],
+                "incidence_data": [
+                  "High prevalence in repetitive overhead sports",
+                  "High prevalence in manual jobs requiring prolonged overhead work"
+                ]
+              },
+              "clinical_findings": {
+                "history": [
+                  "Symptoms developed from, or worsen with, repetitive activities",
+                  "Acute strain or gradual onset"
+                ],
+                "reported_findings": [
+                  "Pain in posterior-lateral shoulder",
+                  "Most noticeable with overhead activities"
+                ],
+                "examination_findings": [
+                  "Midrange catching sensation or painful arc of movement",
+                  "Symptom reproduction with impingement signs",
+                  "Pain with isometric resistance to rotator cuff",
+                  "Weakness on strength testing",
+                  "Atrophy (in cases of tear)",
+                  "Shoulder girdle muscle flexibility, strength, and coordination deficits"
+                ],
+                "primary_survey": [
+                  "Airway",
+                  "Breathing",
+                  "Circulation",
+                  "Disability",
+                  "Exposure"
+                ],
+                "secondary_survey": [
+                  "Supraspinatus Palpation",
+                  "Infraspinatus and Teres Minor Palpation",
+                  "Glenohumeral range of motion",
+                  "Strength assessment",
+                  "Rotator cuff strength assessment",
+                  "Biceps MMT",
+                  "Neer test",
+                  "Hawkins Kennedy test",
+                  "Large rotator cuff tear assessment",
+                  "Speed's test",
+                  "Yergason's test"
+                ]
+              },
+              "physical_exam": {
+                "key_findings": {
+                  "tests": [
+                    "Painful arc test",
+                    "Impingement tests"
+                  ],
+                  "observation_and_palpation": [
+                    "Muscle atrophy assessment",
+                    "Tenderness palpation"
+                  ],
+                  "range_of_motion": [
+                    "Active and passive ROM assessment",
+                    "Painful arc identification"
+                  ],
+                  "irritability": [
+                    "Pain response to movement",
+                    "Irritability level classification"
+                  ]
+                }
+              },
+              "clinical_reasoning": {
+                "assessments": [
+                  "Arc of pain assessment",
+                  "Glenohumeral joint assessment",
+                  "Impingement assessment",
+                  "Large rotator cuff tear assessment",
+                  "Biceps tendinopathy assessment"
+                ]
+              },
+              "movement_faults": {
+                "scapular_faults": [
+                  "Insufficient scapular upward rotation and elevation",
+                  "Insufficient scapular posterior tipping",
+                  "Scapular winging/internal rotation with active elevation"
+                ],
+                "humeral_faults": [
+                  "Excessive humeral anterior translation",
+                  "Excessive humeral medial rotation/inadequate external rotation"
+                ],
+                "thoracic_faults": [
+                  "Thoracic kyphosis/insufficient thoracic extension"
+                ]
+              },
+              "associated_impairments": {
+                "assessments": [
+                  "Thoracic assessment",
+                  "Upper quarter muscle length assessment",
+                  "Scapulothoracic muscle strength assessment",
+                  "Scapulothoracic mobility assessment",
+                  "Overhead athlete specific impairments"
+                ]
+              },
+              "differential_diagnosis": {
+                "assessments": [
+                  "Quick cervical screen",
+                  "Quick screen acromioclavicular joint",
+                  "Significant loss of motion assessment",
+                  "Anterior apprehension with relocation test",
+                  "Upper limb neurodynamic test median nerve arm by side"
+                ]
+              },
+              "interventions": {
+                "manual_therapy": {
+                  "joint_mobilizations": [
+                    "Mobilization with movement for shoulder flexion or abduction",
+                    "Glenohumeral posterior and inferior glides",
+                    "Scapulothoracic mobility techniques",
+                    "Thoracic extension mobilizations"
+                  ],
+                  "soft_tissue_techniques": [
+                    "Improving humeral medial rotator length",
+                    "Improving scapular posterior tipping",
+                    "Improving posterior capsule mobility"
+                  ]
+                },
+                "therapeutic_exercises": {
+                  "irritability_levels": {
+                    "high": [
+                      "Postural reeducation for reaching",
+                      "Manual cueing and patient self repositioning for scapula",
+                      "Submaximal isometrics for rotator cuff",
+                      "Supine internal rotation precision retraining",
+                      "Wall slides"
+                    ],
+                    "moderate": [
+                      "Active elevation to 90 degrees with optimal scapular alignment",
+                      "Resisted shoulder abduction in scapular plane",
+                      "Resisted shoulder external rotation at 90 degrees abduction",
+                      "Quadruped push-up plus",
+                      "Prone scapular retraction and elevation"
+                    ],
+                    "low": [
+                      "Bodyblade below 60 degrees elevation",
+                      "Bodyblade above 60 degrees elevation",
+                      "Lawn mower pull",
+                      "Protraction plank"
+                    ]
+                  }
+                },
+                "functional_movement": [
+                  "Overhead reaching education",
+                  "Cane active assisted range of motion",
+                  "Sleep education",
+                  "Overhead sport education",
+                  "Return to weight training education"
+                ]
+              },
+              "patient_education": {
+                "whats_going_on": [
+                  "Sometimes it feels like something is pinching in your shoulder",
+                  "Especially when you do overhead activities too much",
+                  "Caused by bad postures, loss of flexibility, or weakness"
+                ],
+                "how_long_will_it_take": [
+                  "As your shoulder starts moving better, you will notice decrease in symptoms",
+                  "Likely take at least 3 to 6 weeks to heal",
+                  "Depends on severity of condition"
+                ],
+                "what_we_will_do": [
+                  "Assess your shoulder movements and stretch tight joints and muscles",
+                  "Provide exercises to do on your own",
+                  "Help gain strength and flexibility of tissues around the shoulder",
+                  "Advise to avoid positions and movements that increase pinching feeling"
+                ],
+                "what_you_can_do": [
+                  "Pay attention to your posture",
+                  "Keep ears lined up over shoulders and shoulders lined up over hips",
+                  "Stand tall and don't let shoulders round",
+                  "Avoid positions/movements that make pain worse in early phases",
+                  "Do exercises and stretches to prevent recurrence",
+                  "Report anything that makes pain worse to your care provider"
+                ]
+              },
+              "modalities": {
+                "anti_kyphosis_taping": {
+                  "purpose": [
+                    "Improve thoracic extension",
+                    "Enhance scapular positioning",
+                    "Reduce forward head posture"
+                  ],
+                  "grade_of_recommendation": [
+                    "B"
+                  ],
+                  "info": [
+                    "Effective for postural correction",
+                    "Provides proprioceptive feedback"
+                  ],
+                  "associated_icf_category": [
+                    "b735 Muscle tone functions",
+                    "b740 Muscle endurance functions",
+                    "b755 Motor reflex functions"
+                  ],
+                  "patient_position": [
+                    "Standing with proper posture",
+                    "Sitting upright"
+                  ],
+                  "therapist_position": [
+                    "Standing behind patient",
+                    "Positioned to apply tape with proper tension"
+                  ],
+                  "cues": {
+                    "1": "Clean and dry skin before application",
+                    "2": "Measure tape from T6 to T1 vertebrae",
+                    "3": "Apply with shoulders in retraction and depression",
+                    "4": "Use I-shaped tape configuration",
+                    "5": "Apply minimal tension (10-15%)",
+                    "6": "Rub tape to activate adhesive"
+                  },
+                  "additional_info": [
+                    "Wear for 3-5 days if no skin irritation",
+                    "Avoid applying to irritated or broken skin",
+                    "Remove if itching or discomfort occurs"
+                  ],
+                  "related_objective_measurement": [
+                    "Thoracic extension range of motion",
+                    "Scapular positioning assessment",
+                    "Postural alignment measurements"
+                  ]
+                },
+                "scapular_taping_for_tilting_and_anterior_glide": {
+                  "purpose": [
+                    "Correct scapular anterior tilting",
+                    "Reduce excessive anterior glide",
+                    "Improve scapulohumeral rhythm"
+                  ],
+                  "grade_of_recommendation": [
+                    "B"
+                  ],
+                  "info": [
+                    "Provides mechanical and proprioceptive correction",
+                    "Facilitates proper muscle activation"
+                  ],
+                  "associated_icf_category": [
+                    "b730 Muscle power functions",
+                    "b735 Muscle tone functions",
+                    "b760 Control of voluntary movement functions"
+                  ],
+                  "patient_position": [
+                    "Standing with arm relaxed",
+                    "Sitting with arm supported"
+                  ],
+                  "therapist_position": [
+                    "Standing beside or behind patient",
+                    "Positioned to visualize scapular movement"
+                  ],
+                  "cues": {
+                    "1": "Identify inferior angle of scapula",
+                    "2": "Apply anchor tape along vertebral border",
+                    "3": "Use corrective strip to pull scapula posteriorly",
+                    "4": "Apply tension in direction of desired correction",
+                    "5": "Secure with anchor tapes",
+                    "6": "Have patient move through range to check comfort"
+                  },
+                  "additional_info": [
+                    "Assess skin sensitivity before application",
+                    "Use hypoallergenic tape if needed",
+                    "Educate patient on normal sensation vs. irritation"
+                  ],
+                  "related_objective_measurement": [
+                    "Scapular positioning assessment",
+                    "Shoulder range of motion",
+                    "Pain rating during movement"
+                  ]
+                }
+              },
+              "outcome_measures": [
+                "Shoulder Pain and Disability Index (SPADI)",
+                "American Shoulder and Elbow Surgeons (ASES) Score",
+                "Visual Analog Scale (VAS) for pain",
+                "Range of motion measurements",
+                "Strength testing metrics"
+              ]
+            }
+          ]
+        },
+        "quick_access": {
+          "description": "Rapid reference for common conditions and interventions",
+          "content": []
+        },
+        "physical_exam": {
+          "description": "Comprehensive examination techniques and procedures",
+          "content": []
+        },
+        "movement_faults": {
+          "description": "Identification and analysis of abnormal movement patterns",
+          "content": []
+        },
+        "special_tests": {
+          "description": "Diagnostic tests for specific conditions",
+          "content": []
+        },
+        "manual_therapy": {
+          "description": "Hands-on techniques for tissue mobilization and joint manipulation",
+          "content": []
+        },
+        "therapeutic_exercises": {
+          "description": "Exercise interventions for rehabilitation",
+          "content": []
+        },
+        "rehabilitation_progression_pyramid": {
+          "description": "Staged approach to rehabilitation from acute to return to function",
+          "content": []
+        }
+      }
+    },
+    "knee": {
+      "clinical_pattern_recognition": {
+        "clinical_practice_guidelines": {
+          "all_diagnoses": []
+        },
+        "quick_access": {
+          "description": "Rapid reference for common conditions and interventions",
+          "content": []
+        },
+        "physical_exam": {
+          "description": "Comprehensive examination techniques and procedures",
+          "content": []
+        },
+        "movement_faults": {
+          "description": "Identification and analysis of abnormal movement patterns",
+          "content": []
+        },
+        "special_tests": {
+          "description": "Diagnostic tests for specific conditions",
+          "content": []
+        },
+        "manual_therapy": {
+          "description": "Hands-on techniques for tissue mobilization and joint manipulation",
+          "content": []
+        },
+        "therapeutic_exercises": {
+          "description": "Exercise interventions for rehabilitation",
+          "content": []
+        },
+        "rehabilitation_progression_pyramid": {
+          "description": "Staged approach to rehabilitation from acute to return to function",
+          "content": []
+        }
+      }
+    }
+  }
+}
