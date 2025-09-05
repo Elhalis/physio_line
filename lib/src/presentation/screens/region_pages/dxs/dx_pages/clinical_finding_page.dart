@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:physio_line/src/data/services/data_helper.dart';
+import 'package:physio_line/src/core/utils/data_helper.dart';
 import 'package:physio_line/src/logic/cubit.dart';
 import 'package:physio_line/src/logic/state.dart';
 import 'package:physio_line/src/presentation/widget/bullet_text.dart';

@@ -3,8 +3,8 @@
     "shoulder": {
       "clinical_pattern_recognition": {
         "clinical_practice_guidelines": {
-          "all_diagnoses": [
-            {
+          "all_diagnoses": {
+            "Shoulder pain with muscle power deficits": {
               "name": "Sub-Acromial Pain Syndrome",
               "previous_names": [
                 "Shoulder Impingement"
@@ -292,7 +292,7 @@
                 "Strength testing metrics"
               ]
             }
-          ]
+          }
         },
         "quick_access": {
           "description": "Rapid reference for common conditions and interventions",
@@ -327,7 +327,7 @@
     "knee": {
       "clinical_pattern_recognition": {
         "clinical_practice_guidelines": {
-          "all_diagnoses": []
+          "all_diagnoses": {}
         },
         "quick_access": {
           "description": "Rapid reference for common conditions and interventions",
@@ -361,3 +361,4 @@
     }
   }
 }
+

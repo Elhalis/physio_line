@@ -168,9 +168,11 @@ class AppRoutes {
           final dxName = Uri.decodeComponent(
             state.pathParameters['dxName'] ?? '',
           );
-          // final diseaseName = Uri.decodeComponent(state.pathParameters['diseaseName'] ?? '');
+          final diseaseName = Uri.decodeComponent(
+            state.pathParameters['diseaseName'] ?? '',
+          );
 
-          return PrevalencePage(dxName: dxName);
+          return PrevalencePage(dxName: dxName, diseaseName: diseaseName);
         },
       ),
       // physical_exam
@@ -192,9 +194,11 @@ class AppRoutes {
           final dxName = Uri.decodeComponent(
             state.pathParameters['dxName'] ?? '',
           );
-          // final diseaseName = Uri.decodeComponent(state.pathParameters['diseaseName'] ?? '');
+          final diseaseName = Uri.decodeComponent(
+            state.pathParameters['diseaseName'] ?? '',
+          );
 
-          return InterventionsPage(dxName: dxName);
+          return InterventionsPage(dxName: dxName, diseaseName: diseaseName);
         },
       ),
       // outcomes
@@ -204,9 +208,11 @@ class AppRoutes {
           final dxName = Uri.decodeComponent(
             state.pathParameters['dxName'] ?? '',
           );
-          // final diseaseName = Uri.decodeComponent(state.pathParameters['diseaseName'] ?? '');
+          final diseaseName = Uri.decodeComponent(
+            state.pathParameters['diseaseName'] ?? '',
+          );
 
-          return PrevalencePage(dxName: dxName);
+          return PrevalencePage(dxName: dxName, diseaseName: diseaseName);
         },
       ),
     ],

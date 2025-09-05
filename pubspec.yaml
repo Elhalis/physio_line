@@ -65,7 +65,7 @@ flutter:
   assets:
     - assets/
     - assets/svg/
-    - assets/jsons/
+    - assets/json/
 
   fonts:
     - family: Inter

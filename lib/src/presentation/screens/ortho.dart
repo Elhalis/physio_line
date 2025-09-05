@@ -190,7 +190,17 @@ class OrthopedicPage extends StatelessWidget {
         return kneeData != null &&
             kneeData.clinicalPatternRecognition != null &&
             kneeData.clinicalPatternRecognition.clinicalPracticeGuidelines !=
-                null;
+                null &&
+            kneeData
+                    .clinicalPatternRecognition
+                    .clinicalPracticeGuidelines
+                    .allDiagnoses !=
+                null &&
+            kneeData
+                .clinicalPatternRecognition
+                .clinicalPracticeGuidelines
+                .allDiagnoses
+                .isNotEmpty;
 
       default:
         return false;

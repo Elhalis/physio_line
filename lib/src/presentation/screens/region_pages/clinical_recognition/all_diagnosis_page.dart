@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/utils/data_helper.dart';
 import '../../../../logic/cubit.dart';
 import '../../../../logic/state.dart';
 import '../../../widget/text.dart';
@@ -29,9 +30,6 @@ class AllDiseasePage extends StatelessWidget {
           } else if (state is OrthoError) {
             return Center(child: Text('Error: ${state.message}'));
           } else if (state is OrthoLoaded) {
-            // Load data on first build
-            context.read<OrthoCubit>().loadOrthoData();
-
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -81,16 +79,12 @@ class AllDiseasePage extends StatelessWidget {
   List<Widget> _buildDiagnosisList(BuildContext context, dynamic orthoData) {
     final List<Widget> diagnosisWidgets = [];
 
-    // Get shoulder diagnoses from the loaded data
-    final shoulderData = orthoData
-        .orthoJoints
-        ?.shoulder
-        ?.clinicalPatternRecognition
-        ?.clinicalPracticeGuidelines
-        ?.allDiagnoses;
+    // Get region diagnoses from the loaded data
+    final regionName = diagnosisName.toLowerCase();
+    final diagnoses = DataHelper.getDiagnoses(orthoData, regionName);
 
-    if (shoulderData != null && shoulderData.isNotEmpty) {
-      for (final diagnosis in shoulderData) {
+    if (diagnoses != null && diagnoses.isNotEmpty) {
+      for (final diagnosis in diagnoses) {
         diagnosisWidgets.add(
           InkWell(
             onTap: () {

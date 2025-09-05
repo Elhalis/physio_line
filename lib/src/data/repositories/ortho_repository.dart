@@ -1,12 +1,15 @@
 import '../models/ortho/ortho.dart';
 import '../services/local_storage_service.dart';
 
-class OrthoRepository {
-  final OrthoService _service;
+abstract class IOrthoRepository {
+  Future<Ortho> getOrthoData();
+}
 
+class OrthoRepository implements IOrthoRepository {
+  final LocalDataService _service;
   OrthoRepository(this._service);
 
-  Future<Ortho> getOrthoData() async {
-    return await _service.fetchOrthoData();
-  }
+  @override
+  Future<Ortho> getOrthoData() => _service.fetchOrthoData();
 }
+

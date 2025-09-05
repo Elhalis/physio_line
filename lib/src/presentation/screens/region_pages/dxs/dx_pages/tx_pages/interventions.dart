@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:physio_line/src/data/services/data_helper.dart';
+import 'package:physio_line/src/core/utils/data_helper.dart';
 import 'package:physio_line/src/logic/cubit.dart';
 import 'package:physio_line/src/logic/state.dart';
 import 'package:physio_line/src/presentation/widget/base_region_section_page.dart';
@@ -11,8 +11,13 @@ import '../../../../../widget/text.dart';
 
 class InterventionsPage extends StatelessWidget {
   final String dxName;
+  final String diseaseName;
 
-  const InterventionsPage({super.key, required this.dxName});
+  const InterventionsPage({
+    super.key,
+    required this.dxName,
+    required this.diseaseName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,34 +53,22 @@ class InterventionsPage extends StatelessWidget {
 
   Widget _buildInterventionsContent(BuildContext context, dynamic orthoData) {
     final regionName = dxName.toLowerCase();
-    final diagnoses = DataHelper.getDiagnoses(orthoData, regionName);
-
-    if (diagnoses == null || diagnoses.isEmpty) {
-      return BaseRegionSectionPage(
-        regionName: dxName,
-        sectionTitle: 'Interventions',
-        body: const Center(child: Text('No intervention data available')),
-      );
-    }
-
-    // Get interventions for the first available diagnosis
-    final diagnosis = diagnoses.first;
     final manualTherapyData = DataHelper.getInterventions(
       orthoData,
       regionName,
-      diagnosis.name,
+      diseaseName,
       'manual_therapy',
     );
     final therapeuticExercisesData = DataHelper.getInterventions(
       orthoData,
       regionName,
-      diagnosis.name,
+      diseaseName,
       'therapeutic_exercises',
     );
     final functionalMovementData = DataHelper.getInterventions(
       orthoData,
       regionName,
-      diagnosis.name,
+      diseaseName,
       'functional_movement',
     );
 

@@ -8,7 +8,7 @@ part 'clinical_practice_guidelines.g.dart';
 @JsonSerializable()
 class ClinicalPracticeGuidelines extends Equatable {
   @JsonKey(name: 'all_diagnoses')
-  final List<AllDiagnosis>? allDiagnoses;
+  final Map<String, AllDiagnosis>? allDiagnoses;
 
   const ClinicalPracticeGuidelines({this.allDiagnoses});
 
@@ -18,7 +18,9 @@ class ClinicalPracticeGuidelines extends Equatable {
 
   Map<String, dynamic> toJson() => _$ClinicalPracticeGuidelinesToJson(this);
 
-  ClinicalPracticeGuidelines copyWith({List<AllDiagnosis>? allDiagnoses}) {
+  ClinicalPracticeGuidelines copyWith({
+    Map<String, AllDiagnosis>? allDiagnoses,
+  }) {
     return ClinicalPracticeGuidelines(
       allDiagnoses: allDiagnoses ?? this.allDiagnoses,
     );

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Initialize services and repository
-    final orthoService = OrthoService();
+    final orthoService = LocalDataService();
     final orthoRepository = OrthoRepository(orthoService);
     final orthoCubit = OrthoCubit(orthoRepository);
 
@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.light,
-        
       ),
     );
   }
