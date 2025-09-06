@@ -5,8 +5,8 @@ import 'package:physio_line/src/presentation/widget/img_tile.dart';
 import 'package:physio_line/src/presentation/widget/svg_tile.dart';
 import 'package:physio_line/src/core/constants/app_strings.dart';
 import 'package:physio_line/src/core/utils/data_helper.dart';
-import 'package:physio_line/src/logic/cubit.dart';
-import 'package:physio_line/src/logic/state.dart';
+import 'package:physio_line/src/cubit/cubit.dart';
+import 'package:physio_line/src/cubit/state.dart';
 
 class ClinicalPatternPage extends StatelessWidget {
   final String regionName;
@@ -37,27 +37,46 @@ class ClinicalPatternPage extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildContent(BuildContext context, dynamic orthoData) {
+    // Get clinical pattern categories from the loaded data
+    final categories = DataHelper.getClinicalPatternCategories(
+      orthoData,
+      regionName.toLowerCase(),
+    );
+
     // Get diagnoses from the loaded data
-    final diagnoses = DataHelper.getDiagnoses(orthoData, regionName.toLowerCase());
-    
-    List<Widget> children = [
+    DataHelper.getDiagnoses(orthoData, regionName.toLowerCase());
+
+    List<Widget> children = [];
+
+    children.add(
       SvgListTile(
         svg: Constants.dx,
         title: 'All Diagnosis',
         path: '/dxs/${Uri.encodeComponent(regionName)}',
       ),
-    ];
-    
-    // Add diagnosis tiles if available
-    if (diagnoses != null && diagnoses.isNotEmpty) {
-      for (final diagnosis in diagnoses) {
+    );
+
+    // Add clinical pattern recognition categories if available
+    if (categories != null && categories.isNotEmpty) {
+      for (final categoryEntry in categories.entries) {
+        final categoryName = categoryEntry.key
+            .replaceAll('_', ' ')
+            .split(' ')
+            .map(
+              (word) => word.isNotEmpty
+                  ? word[0].toUpperCase() + word.substring(1).toLowerCase()
+                  : '',
+            )
+            .join(' ');
+
         children.add(
           ImageTile(
-            title: diagnosis.name,
-            imgPath: 'assets/body_regions.jpg',
-            path: '/dxs/${Uri.encodeComponent(regionName)}/${Uri.encodeComponent(diagnosis.name)}',
+            imgPath: Constants.bodyRegions,
+            title: categoryName,
+            path:
+                '/dxs/${Uri.encodeComponent(regionName)}/${Uri.encodeComponent(categoryName)}',
           ),
         );
       }
@@ -69,7 +88,9 @@ class ClinicalPatternPage extends StatelessWidget {
         ),
       );
     }
-    
+
+    // Add diagnosis tiles if available
+
     return Column(children: children);
   }
 }

@@ -9,11 +9,11 @@ import 'package:physio_line/src/presentation/widget/bullet_text.dart';
 import '../../../../../../core/constants/app_sizes.dart';
 import '../../../../../widget/text.dart';
 
-class InterventionsPage extends StatelessWidget {
+class AssociatedImpairmentsPage extends StatelessWidget {
   final String dxName;
   final String diseaseName;
 
-  const InterventionsPage({
+  const AssociatedImpairmentsPage({
     super.key,
     required this.dxName,
     required this.diseaseName,
@@ -25,24 +25,24 @@ class InterventionsPage extends StatelessWidget {
       builder: (context, state) {
         if (state is OrthoLoading) {
           return BasePage(
-            heading: 'Interventions',
+            heading: 'Associated Impairments',
             subTitle: dxName,
             body: const Center(child: CircularProgressIndicator()),
           );
         } else if (state is OrthoError) {
           return BasePage(
-            heading: 'Interventions',
+            heading: 'Associated Impairments',
             subTitle: dxName,
             body: Center(child: Text('Error: ${state.message}')),
           );
         } else if (state is OrthoLoaded) {
-          return _buildInterventionsContent(context, state.data);
+          return _buildAssociatedImpairmentsContent(context, state.data);
         } else {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             context.read<OrthoCubit>().loadOrthoData();
           });
           return BasePage(
-            heading: 'Interventions',
+            heading: 'Associated Impairments',
             subTitle: dxName,
             body: const Center(child: CircularProgressIndicator()),
           );
@@ -51,68 +51,60 @@ class InterventionsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInterventionsContent(BuildContext context, dynamic orthoData) {
+  Widget _buildAssociatedImpairmentsContent(
+    BuildContext context,
+    dynamic orthoData,
+  ) {
     final regionName = dxName.toLowerCase();
-    final manualTherapyData = DataHelper.getInterventions(
+
+    // Get associated impairments data for the specific disease
+    final primarySurveyData = DataHelper.getClinicalFindings(
       orthoData,
       regionName,
       diseaseName,
-      'manual_therapy',
+      'primary_survey',
     );
-    final therapeuticExercisesData = DataHelper.getInterventions(
+
+    final secondarySurveyData = DataHelper.getClinicalFindings(
       orthoData,
       regionName,
       diseaseName,
-      'therapeutic_exercises',
-    );
-    final functionalMovementData = DataHelper.getInterventions(
-      orthoData,
-      regionName,
-      diseaseName,
-      'functional_movement',
+      'secondary_survey',
     );
 
     return BasePage(
-      heading: 'Interventions',
+      heading: 'Associated Impairments',
       subTitle: dxName,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Manual Therapy Section
-            if (manualTherapyData != null && manualTherapyData.isNotEmpty) ...[
-              BoldSubtitle(title: 'Manual Therapy'),
+            // Primary Survey Section
+            if (primarySurveyData != null && primarySurveyData.isNotEmpty) ...[
+              BoldSubtitle(title: 'Primary Survey'),
               const SizedBox(height: AppDimensions.spacingS),
-              ...manualTherapyData.map((text) => BulletText(text: text)),
+              ...primarySurveyData.map((text) => BulletText(text: text)),
               const SizedBox(height: AppDimensions.spacingL),
             ],
 
-            // Therapeutic Exercises Section
-            if (therapeuticExercisesData != null &&
-                therapeuticExercisesData.isNotEmpty) ...[
-              BoldSubtitle(title: 'Therapeutic Exercises'),
+            // Secondary Survey Section
+            if (secondarySurveyData != null &&
+                secondarySurveyData.isNotEmpty) ...[
+              BoldSubtitle(title: 'Secondary Survey'),
               const SizedBox(height: AppDimensions.spacingS),
-              ...therapeuticExercisesData.map((text) => BulletText(text: text)),
-              const SizedBox(height: AppDimensions.spacingL),
-            ],
-
-            // Functional Movement Section
-            if (functionalMovementData != null &&
-                functionalMovementData.isNotEmpty) ...[
-              BoldSubtitle(title: 'Functional Movement'),
-              const SizedBox(height: AppDimensions.spacingS),
-              ...functionalMovementData.map((text) => BulletText(text: text)),
+              ...secondarySurveyData.map((text) => BulletText(text: text)),
               const SizedBox(height: AppDimensions.spacingL),
             ],
 
             // Fallback if no data available
-            if (manualTherapyData == null &&
-                therapeuticExercisesData == null &&
-                functionalMovementData == null) ...[
-              BoldSubtitle(title: 'Interventions'),
+            if ((primarySurveyData == null || primarySurveyData.isEmpty) &&
+                (secondarySurveyData == null ||
+                    secondarySurveyData.isEmpty)) ...[
+              BoldSubtitle(title: 'Associated Impairments'),
               const SizedBox(height: AppDimensions.spacingS),
               BodyMediumText(
-                text: 'No intervention data available for $dxName',
+                text:
+                    'No associated impairments data available for $diseaseName in $dxName',
               ),
             ],
           ],

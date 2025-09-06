@@ -4,14 +4,19 @@ import 'package:physio_line/src/presentation/widget/svg_tile.dart';
 import 'package:physio_line/src/core/constants/app_strings.dart';
 
 class PhysicalExamPage extends StatelessWidget {
-  final String regionName;
+  final String dxName;
+  final String diseaseName;
 
-  const PhysicalExamPage({super.key, required this.regionName});
+  const PhysicalExamPage({
+    super.key,
+    required this.dxName,
+    required this.diseaseName,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BaseRegionSectionPage(
-      regionName: regionName,
+      regionName: dxName,
       sectionTitle: 'Physical Exam',
       body: Column(
         children: [
@@ -19,25 +24,29 @@ class PhysicalExamPage extends StatelessWidget {
             svg: Constants.finding,
             size: 44,
             title: 'Key Findings',
-            path: '/key_finding',
+            path:
+                '/dx/${Uri.encodeComponent(dxName)}/${Uri.encodeComponent(diseaseName)}/key_findings',
           ),
           SvgListTile(
             svg: Constants.movementFault,
             size: 44,
             title: 'Movement Faults',
-            path: '/movement_faults',
+            path:
+                '/dx/${Uri.encodeComponent(dxName)}/${Uri.encodeComponent(diseaseName)}/movement_faults',
           ),
           SvgListTile(
             svg: Constants.finding,
             size: 44,
             title: 'Associated Impairments',
-            path: '/associated_impairments',
+            path:
+                '/dx/${Uri.encodeComponent(dxName)}/${Uri.encodeComponent(diseaseName)}/associated_impairments',
           ),
           SvgListTile(
             svg: Constants.dx,
             size: 44,
-            title: 'Diffential',
-            path: '/diffential',
+            title: 'Differential',
+            path:
+                '/dx/${Uri.encodeComponent(dxName)}/${Uri.encodeComponent(diseaseName)}/differential',
           ),
         ],
       ),

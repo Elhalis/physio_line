@@ -8,6 +8,7 @@ import '../../core/constants/app_strings.dart';
 class BasePage extends StatelessWidget {
   final String heading;
   final String subTitle;
+  final String? backPath;
   final Widget body;
   final List<Widget>? actions;
 
@@ -17,6 +18,7 @@ class BasePage extends StatelessWidget {
     required this.subTitle,
     required this.body,
     this.actions,
+    this.backPath,
   });
 
   @override
@@ -39,7 +41,7 @@ class BasePage extends StatelessWidget {
               const SizedBox(height: 16.0),
 
               // Breadcrumb navigation - shows "Orthopedic > Neck"
-              PathText(regionName: 'Back'),
+              SimplePathText(title: backPath ?? 'Back'),
 
               // Main heading - shows the section name (e.g., "Clinical Pattern Recognition")
               Row(

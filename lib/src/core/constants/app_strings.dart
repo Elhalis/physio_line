@@ -62,7 +62,8 @@ class Constants {
   static const String finding = 'assets/svg/search2.svg';
   static const String tx = 'assets/svg/tx.svg';
   static const String doList = 'assets/svg/do_list.svg';
+  static const String reasoning = 'assets/svg/clinical_reasoning.svg';
 
   // Non-SVG
-  static const String bodyRegions = 'assets/a body_regions.jpg';
+  static const String bodyRegions = 'assets/body_regions.jpg';
 }

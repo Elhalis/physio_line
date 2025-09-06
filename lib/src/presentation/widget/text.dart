@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:physio_line/src/core/utils/extensions/string_extensions.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_sizes.dart';
 import '../../core/constants/constants.dart';
@@ -8,6 +9,24 @@ import '../../core/constants/app_strings.dart';
 
 /// Reusable text widgets with consistent theming
 
+class PrimaryText extends StatelessWidget {
+  const PrimaryText({super.key, required this.title});
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Color(0xFFC2410C),
+      ),
+    );
+  }
+}
+
+// Breadcrumb navigation - shows "Orthopedic > Neck"
 class PathText extends StatelessWidget {
   const PathText({super.key, required this.regionName});
   final String regionName;
@@ -67,7 +86,7 @@ class SimplePathText extends StatelessWidget {
           onPressed: () {
             context.pop();
           },
-          child: Text(title, style: AppTypography.pathText),
+          child: Text(title.capitalize(), style: AppTypography.pathText),
         ),
       ],
     );
@@ -98,7 +117,7 @@ class HeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      Text(title, style: AppTypography.heading);
+      Text(title.capitalize(), style: AppTypography.heading);
 }
 
 class BodyLargeText extends StatelessWidget {

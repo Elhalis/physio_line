@@ -6,7 +6,8 @@ import '../../core/constants/app_colors.dart';
 class SvgIcon extends StatelessWidget {
   final String assetPath;
   final double? size;
-  const SvgIcon({super.key, required this.assetPath, this.size});
+  final Color? color;
+  const SvgIcon({super.key, required this.assetPath, this.size, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class SvgIcon extends StatelessWidget {
       assetPath,
       height: size ?? 20,
       width: size ?? 20,
-      colorFilter: ColorFilter.mode(AppColors.surface, BlendMode.srcIn),
+      colorFilter: ColorFilter.mode(color ?? AppColors.surface, BlendMode.srcIn),
     );
   }
 }

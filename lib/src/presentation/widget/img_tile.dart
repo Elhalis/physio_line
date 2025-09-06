@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:physio_line/src/core/constants/app_strings.dart';
+import 'package:physio_line/src/presentation/widget/svg_picture.dart';
+import 'package:physio_line/src/presentation/widget/text.dart';
 
 class ImageTile extends StatelessWidget {
   const ImageTile({
@@ -43,14 +46,7 @@ class ImageTile extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   spacing: 12,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFFC2410C),
-                      ),
-                    ),
+                    PrimaryText(title: title,),
 
                     Text(
                       "Explore",
@@ -66,7 +62,7 @@ class ImageTile extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 8),
-            const Icon(Icons.folder_open, color: Colors.grey),
+            SvgIcon(assetPath: Constants.openFolder,color: Colors.grey),
           ],
         ),
       ),

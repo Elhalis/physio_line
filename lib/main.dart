@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:physio_line/src/core/theme/theme.dart';
 import 'package:physio_line/src/data/repositories/ortho_repository.dart';
 import 'package:physio_line/src/data/services/local_storage_service.dart';
-import 'package:physio_line/src/logic/cubit.dart';
-import 'package:physio_line/src/presentation/router/app_routes.dart';
+import 'package:physio_line/src/cubit/cubit.dart';
+import 'package:physio_line/src/core/router/app_routes.dart';
 
 void main() {
   runApp(const MyApp());

@@ -35,7 +35,7 @@ class DiseasePage extends StatelessWidget {
               const SizedBox(height: 16.0),
 
               // Breadcrumb navigation - shows "Orthopedic > Neck"
-              PathText(regionName: dxName),
+              SimplePathText(title: dxName),
 
               // Main heading - shows the section name (e.g., "Clinical Pattern Recognition")
               HeadingText(title: diseaseName),

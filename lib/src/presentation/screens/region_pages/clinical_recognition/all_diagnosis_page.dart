@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/data_helper.dart';
-import '../../../../logic/cubit.dart';
-import '../../../../logic/state.dart';
+import '../../../../cubit/cubit.dart';
+import '../../../../cubit/state.dart';
 import '../../../widget/text.dart';
 
 class AllDiseasePage extends StatelessWidget {
@@ -43,7 +43,7 @@ class AllDiseasePage extends StatelessWidget {
                     const SizedBox(height: 16.0),
 
                     // Breadcrumb navigation
-                    PathText(regionName: 'Clinical Pattern Recognition'),
+                    SimplePathText(title: 'Clinical Pattern Recognition'),
                     HeadingText(title: diagnosisName),
 
                     const SizedBox(height: 28),
@@ -144,12 +144,10 @@ class AllDiseasePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text(
-                          diagnosis.description ?? 'No description available',
-                        ),
-                        if (diagnosis.previousNames?.isNotEmpty == true)
+                        Text(diagnosis.description),
+                        if (diagnosis.previousNames.isNotEmpty == true)
                           Text(
-                            'Previously known as: ${diagnosis.previousNames?.join(', ')}',
+                            'Previously known as: ${diagnosis.previousNames.join(', ')}',
                           ),
                       ],
                     ),

@@ -79,3 +79,100 @@ class SvgListTile extends StatelessWidget {
     );
   }
 }
+
+class ReasoningSvg extends StatelessWidget {
+  const ReasoningSvg({
+    super.key,
+    required this.svg,
+    required this.title,
+    required this.subtitle,
+    required this.path,
+    this.size = 50,
+  });
+
+  final String svg;
+  final String title;
+  final String subtitle;
+  final String path;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => context.push(path),
+      hoverColor: Colors.grey[100],
+      child: Container(
+        padding: EdgeInsetsDirectional.symmetric(vertical: 8.0),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(color: Color(0xFFEDEDED))),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 12,
+              children: [
+                SvgPicture.asset(
+                  svg,
+                  height: size,
+                  width: size,
+                  colorFilter: ColorFilter.mode(
+                    Color(0xFF4B5563),
+                    BlendMode.srcIn,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          subtitle,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                Text(
+                  "Explore",
+                  style: TextStyle(
+                    color: Color(0xFF1D6437),
+                    backgroundColor: Color(0xFFDDFCE8),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(width: 8),
+            SvgPicture.asset(
+              Constants.openFolder,
+              height: 20,
+              width: 20,
+              colorFilter: ColorFilter.mode(Color(0xFF9CA3AF), BlendMode.srcIn),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

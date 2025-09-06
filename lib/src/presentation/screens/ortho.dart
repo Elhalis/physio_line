@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:physio_line/src/logic/cubit.dart';
-import 'package:physio_line/src/logic/state.dart';
+import 'package:physio_line/src/cubit/cubit.dart';
+import 'package:physio_line/src/cubit/state.dart';
 import 'package:physio_line/src/presentation/widget/text.dart';
 
 import '../widget/custome_appbar.dart';
@@ -163,47 +163,22 @@ class OrthopedicPage extends StatelessWidget {
   }
 
   bool _hasRegionData(dynamic orthoData, String regionName) {
-    if (orthoData?.orthoJoints == null) return false;
+    if (orthoData == null) return false;
 
-    switch (regionName) {
-      case 'shoulder':
-        final shoulderData = orthoData.orthoJoints.shoulder;
-        return shoulderData != null &&
-            shoulderData.clinicalPatternRecognition != null &&
-            shoulderData
-                    .clinicalPatternRecognition
-                    .clinicalPracticeGuidelines !=
-                null &&
-            shoulderData
-                    .clinicalPatternRecognition
-                    .clinicalPracticeGuidelines
-                    .allDiagnoses !=
-                null &&
-            shoulderData
+    // Access the joints map instead of direct properties
+    final joint = orthoData.joints[regionName];
+    return joint != null &&
+        joint.clinicalPatternRecognition != null &&
+        joint.clinicalPatternRecognition.clinicalPracticeGuidelines != null &&
+        joint
                 .clinicalPatternRecognition
                 .clinicalPracticeGuidelines
-                .allDiagnoses
-                .isNotEmpty;
-
-      case 'knee':
-        final kneeData = orthoData.orthoJoints.knee;
-        return kneeData != null &&
-            kneeData.clinicalPatternRecognition != null &&
-            kneeData.clinicalPatternRecognition.clinicalPracticeGuidelines !=
-                null &&
-            kneeData
-                    .clinicalPatternRecognition
-                    .clinicalPracticeGuidelines
-                    .allDiagnoses !=
-                null &&
-            kneeData
-                .clinicalPatternRecognition
-                .clinicalPracticeGuidelines
-                .allDiagnoses
-                .isNotEmpty;
-
-      default:
-        return false;
-    }
+                .allDiagnoses !=
+            null &&
+        joint
+            .clinicalPatternRecognition
+            .clinicalPracticeGuidelines
+            .allDiagnoses
+            .isNotEmpty;
   }
 }

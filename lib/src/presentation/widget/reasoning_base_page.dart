@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:physio_line/src/core/constants/app_strings.dart';
+import 'package:physio_line/src/presentation/widget/svg_tile.dart';
 import 'package:physio_line/src/presentation/widget/text.dart';
 
 import '../../core/constants/app_colors.dart';
 
-class BaseRegionSectionPage extends StatelessWidget {
-  final String regionName;
-  final String sectionTitle;
+class ReasoningBasePage extends StatelessWidget {
+  final String heading;
+  final String diagnosis;
+  final String path;
+  final String backPath;
   final Widget body;
   final List<Widget>? actions;
 
-  const BaseRegionSectionPage({
+  const ReasoningBasePage({
     super.key,
-    required this.regionName,
-    required this.sectionTitle,
+    required this.heading,
+    required this.diagnosis,
     required this.body,
     this.actions,
+    required this.backPath,
+    required this.path,
   });
 
   @override
@@ -25,8 +31,7 @@ class BaseRegionSectionPage extends StatelessWidget {
         backgroundColor: AppColors.appBar,
         title: const FlutterLogo(size: 50),
         centerTitle: true,
-        actions:
-            actions ?? [EndDrawerButton(color: Colors.white, onPressed: () {})],
+        actions: [EndDrawerButton(color: Colors.white, onPressed: () {})],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -37,13 +42,19 @@ class BaseRegionSectionPage extends StatelessWidget {
             children: [
               const SizedBox(height: 16.0),
 
-              
-              SimplePathText(title: regionName),
+              SimplePathText(title: backPath),
 
               // Main heading - shows the section name (e.g., "Clinical Pattern Recognition")
-              HeadingText(title: sectionTitle),
+              HeadingText(title: heading),
 
-              const SizedBox(height: 52),
+              const SizedBox(height: 28),
+
+              ReasoningSvg(
+                svg: Constants.reasoning,
+                title: 'Clinical Reasoning',
+                subtitle: diagnosis,
+                path: path,
+              ),
 
               // Page content
               body,
