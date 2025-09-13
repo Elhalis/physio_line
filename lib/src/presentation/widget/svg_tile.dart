@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:physio_line/src/data/models/ortho_model.dart'; // Import Diagnosis model
+import 'package:physio_line/src/presentation/widget/text/explore_text.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
@@ -12,17 +14,30 @@ class SvgListTile extends StatelessWidget {
     required this.title,
     required this.path,
     this.size = 50,
+    this.diagnosis, // Accept Diagnosis object for navigation
   });
 
   final String svg;
   final String title;
   final String path;
   final double size;
+  final Diagnosis? diagnosis; // Optional Diagnosis object
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(path),
+      onTap: () {
+        assert(() {
+          // ignore: avoid_print
+          print('[NAV] svg_tile -> push: $path');
+          return true;
+        }());
+        if (diagnosis != null) {
+          context.push(path, extra: diagnosis);
+        } else {
+          context.push(path);
+        }
+      },
       hoverColor: Colors.grey[100],
       child: Container(
         padding: EdgeInsetsDirectional.symmetric(vertical: 8.0),
@@ -34,8 +49,8 @@ class SvgListTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
+              spacing: 8,
               mainAxisSize: MainAxisSize.min,
-              spacing: 12,
               children: [
                 SvgPicture.asset(
                   svg,
@@ -46,6 +61,7 @@ class SvgListTile extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                 ),
+                const SizedBox(width: 12), // Added for spacing
                 Text(
                   title,
                   style: const TextStyle(
@@ -54,16 +70,7 @@ class SvgListTile extends StatelessWidget {
                     color: AppColors.primaryDark,
                   ),
                 ),
-
-                Text(
-                  "Explore",
-                  style: TextStyle(
-                    color: Color(0xFF1D6437),
-                    backgroundColor: Color(0xFFDDFCE8),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                  ),
-                ),
+                ExploreText(),
               ],
             ),
             const SizedBox(width: 8),
@@ -112,7 +119,6 @@ class ReasoningSvg extends StatelessWidget {
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
-              spacing: 12,
               children: [
                 SvgPicture.asset(
                   svg,
@@ -123,6 +129,7 @@ class ReasoningSvg extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                 ),
+                const SizedBox(width: 12), // Added for spacing
                 Column(
                   children: [
                     Row(
@@ -152,15 +159,7 @@ class ReasoningSvg extends StatelessWidget {
                   ],
                 ),
 
-                Text(
-                  "Explore",
-                  style: TextStyle(
-                    color: Color(0xFF1D6437),
-                    backgroundColor: Color(0xFFDDFCE8),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                  ),
-                ),
+                ExploreText(),
               ],
             ),
             const SizedBox(width: 8),

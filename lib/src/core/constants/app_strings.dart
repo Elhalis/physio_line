@@ -66,4 +66,5 @@ class Constants {
 
   // Non-SVG
   static const String bodyRegions = 'assets/body_regions.jpg';
+  static const String patternA = 'assets/menu_1260.jpg';
 }

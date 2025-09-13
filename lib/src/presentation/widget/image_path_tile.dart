@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:physio_line/src/presentation/widget/text.dart';
+import 'package:physio_line/src/presentation/widget/text/explore_text.dart';
+import 'package:physio_line/src/presentation/widget/text/text.dart';
 
 class ImagePathTile extends StatelessWidget {
   const ImagePathTile({
@@ -17,7 +18,14 @@ class ImagePathTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(path),
+      onTap: () {
+        assert(() {
+          // ignore: avoid_print
+          print('[NAV] image_path_tile -> push: $path');
+          return true;
+        }());
+        context.push(path);
+      },
       hoverColor: Colors.grey[100],
       child: Container(
         padding: EdgeInsetsDirectional.symmetric(vertical: 12.0),
@@ -40,21 +48,7 @@ class ImagePathTile extends StatelessWidget {
             ),
             PrimaryText(title: title),
 
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                color: Color(0xFFDDFCE8),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                "Explore",
-                style: TextStyle(
-                  color: Color(0xFF1D6437),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
-              ),
-            ),
+            ExploreText(),
           ],
         ),
       ),

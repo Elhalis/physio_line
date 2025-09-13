@@ -27,6 +27,11 @@ class ElementCard extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
+            assert(() {
+              // ignore: avoid_print, prefer_interpolation_to_compose_strings
+              print('[NAV] element_card -> push: ' + location);
+              return true;
+            }());
             context.push(location);
           },
           focusColor:

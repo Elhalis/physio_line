@@ -5,9 +5,11 @@ class OrthoJoints {
 
   factory OrthoJoints.fromJson(Map<String, dynamic> json) {
     var jointsMap = <String, Joint>{};
-    json['ortho_joints'].forEach((key, value) {
-      jointsMap[key] = Joint.fromJson(value);
-    });
+    if (json['ortho_joints'] != null) {
+      json['ortho_joints'].forEach((key, value) {
+        jointsMap[key] = Joint.fromJson(value);
+      });
+    }
     return OrthoJoints(joints: jointsMap);
   }
 
@@ -20,20 +22,32 @@ class OrthoJoints {
 
 class Joint {
   final ClinicalPatternRecognition clinicalPatternRecognition;
+  final ClinicalPracticeGuidelines clinicalPracticeGuidelines;
+  final QuickAccess quickAccess;
 
-  Joint({required this.clinicalPatternRecognition});
+  Joint({
+    required this.clinicalPatternRecognition,
+    required this.clinicalPracticeGuidelines,
+    required this.quickAccess,
+  });
 
   factory Joint.fromJson(Map<String, dynamic> json) {
     return Joint(
       clinicalPatternRecognition: ClinicalPatternRecognition.fromJson(
         json['clinical_pattern_recognition'],
       ),
+      clinicalPracticeGuidelines: ClinicalPracticeGuidelines.fromJson(
+        json['clinical_practice_guidelines'] ?? {},
+      ),
+      quickAccess: QuickAccess.fromJson(json['quick_access'] ?? {}),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'clinical_pattern_recognition': clinicalPatternRecognition.toJson(),
+      'clinical_practice_guidelines': clinicalPracticeGuidelines.toJson(),
+      'quick_access': quickAccess.toJson(),
     };
   }
 }
@@ -41,24 +55,10 @@ class Joint {
 class ClinicalPatternRecognition {
   final Map<String, ClinicalCategory> categories;
   final ClinicalPracticeGuidelines clinicalPracticeGuidelines;
-  final ClinicalCategory quickAccess;
-  final ClinicalCategory physicalExam;
-  final ClinicalCategory movementFaults;
-  final ClinicalCategory specialTests;
-  final ClinicalCategory manualTherapy;
-  final ClinicalCategory therapeuticExercises;
-  final ClinicalCategory rehabilitationProgressionPyramid;
 
   ClinicalPatternRecognition({
     required this.categories,
     required this.clinicalPracticeGuidelines,
-    required this.quickAccess,
-    required this.physicalExam,
-    required this.movementFaults,
-    required this.specialTests,
-    required this.manualTherapy,
-    required this.therapeuticExercises,
-    required this.rehabilitationProgressionPyramid,
   });
 
   factory ClinicalPatternRecognition.fromJson(Map<String, dynamic> json) {
@@ -69,35 +69,19 @@ class ClinicalPatternRecognition {
       });
     }
 
-    // Handle both old structure (clinical_practice_guidelines) and new structure (all_diagnoses directly)
+    // Map "all_diagnoses" into ClinicalPracticeGuidelines
     ClinicalPracticeGuidelines guidelines;
-    if (json['clinical_practice_guidelines'] != null) {
-      guidelines = ClinicalPracticeGuidelines.fromJson(
-        json['clinical_practice_guidelines'],
-      );
-    } else if (json['all_diagnoses'] != null) {
-      // Create a ClinicalPracticeGuidelines from the all_diagnoses directly
+    if (json['all_diagnoses'] != null) {
       guidelines = ClinicalPracticeGuidelines.fromJson({
         'all_diagnoses': json['all_diagnoses'],
       });
     } else {
-      guidelines = ClinicalPracticeGuidelines(allDiagnoses: []);
+      guidelines = ClinicalPracticeGuidelines(allDiagnoses: {});
     }
 
     return ClinicalPatternRecognition(
       categories: categoriesMap,
       clinicalPracticeGuidelines: guidelines,
-      quickAccess: ClinicalCategory.fromJson(json['quick_access'] ?? {}),
-      physicalExam: ClinicalCategory.fromJson(json['physical_exam'] ?? {}),
-      movementFaults: ClinicalCategory.fromJson(json['movement_faults'] ?? {}),
-      specialTests: ClinicalCategory.fromJson(json['special_tests'] ?? {}),
-      manualTherapy: ClinicalCategory.fromJson(json['manual_therapy'] ?? {}),
-      therapeuticExercises: ClinicalCategory.fromJson(
-        json['therapeutic_exercises'] ?? {},
-      ),
-      rehabilitationProgressionPyramid: ClinicalCategory.fromJson(
-        json['rehabilitation_progression_pyramid'] ?? {},
-      ),
     );
   }
 
@@ -107,7 +91,62 @@ class ClinicalPatternRecognition {
         (key, value) => MapEntry(key, value.toJson()),
       ),
       'clinical_practice_guidelines': clinicalPracticeGuidelines.toJson(),
-      'quick_access': quickAccess.toJson(),
+    };
+  }
+}
+
+class ClinicalCategory {
+  final List<String> commonCauses;
+
+  ClinicalCategory({required this.commonCauses});
+
+  factory ClinicalCategory.fromJson(Map<String, dynamic> json) {
+    return ClinicalCategory(
+      commonCauses: List<String>.from(json['common_causes'] ?? []),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'common_causes': commonCauses};
+  }
+}
+
+class QuickAccess {
+  final QuickAccessCategory physicalExam;
+  final QuickAccessCategory movementFaults;
+  final QuickAccessCategory specialTests;
+  final QuickAccessCategory manualTherapy;
+  final QuickAccessCategory therapeuticExercises;
+  final QuickAccessCategory rehabilitationProgressionPyramid;
+
+  QuickAccess({
+    required this.physicalExam,
+    required this.movementFaults,
+    required this.specialTests,
+    required this.manualTherapy,
+    required this.therapeuticExercises,
+    required this.rehabilitationProgressionPyramid,
+  });
+
+  factory QuickAccess.fromJson(Map<String, dynamic> json) {
+    return QuickAccess(
+      physicalExam: QuickAccessCategory.fromJson(json['physical_exam'] ?? {}),
+      movementFaults: QuickAccessCategory.fromJson(
+        json['movement_faults'] ?? {},
+      ),
+      specialTests: QuickAccessCategory.fromJson(json['special_tests'] ?? {}),
+      manualTherapy: QuickAccessCategory.fromJson(json['manual_therapy'] ?? {}),
+      therapeuticExercises: QuickAccessCategory.fromJson(
+        json['therapeutic_exercises'] ?? {},
+      ),
+      rehabilitationProgressionPyramid: QuickAccessCategory.fromJson(
+        json['rehabilitation_progression_pyramid'] ?? {},
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
       'physical_exam': physicalExam.toJson(),
       'movement_faults': movementFaults.toJson(),
       'special_tests': specialTests.toJson(),
@@ -119,64 +158,50 @@ class ClinicalPatternRecognition {
   }
 }
 
-class ClinicalPracticeGuidelines {
-  final List<Diagnosis> allDiagnoses;
-
-  ClinicalPracticeGuidelines({required this.allDiagnoses});
-
-  factory ClinicalPracticeGuidelines.fromJson(Map<String, dynamic> json) {
-    var diagnosesList = <Diagnosis>[];
-    if (json['all_diagnoses'] != null) {
-      json['all_diagnoses'].forEach((key, value) {
-        // Add the key as a field in the diagnosis data
-        if (value is Map<String, dynamic>) {
-          // Store the key as part of the diagnosis data
-          diagnosesList.add(Diagnosis.fromJson(value, key: key));
-        }
-      });
-    }
-    return ClinicalPracticeGuidelines(allDiagnoses: diagnosesList);
-  }
-
-  Map<String, dynamic> toJson() {
-    return {'all_diagnoses': allDiagnoses.map((v) => v.toJson()).toList()};
-  }
-}
-
-class ClinicalCategory {
+class QuickAccessCategory {
   final String description;
   final List<dynamic> content;
-  final List<String> commonCauses;
 
-  ClinicalCategory({
-    required this.description,
-    required this.content,
-    required this.commonCauses,
-  });
+  QuickAccessCategory({required this.description, required this.content});
 
-  factory ClinicalCategory.fromJson(Map<String, dynamic> json) {
-    return ClinicalCategory(
+  factory QuickAccessCategory.fromJson(Map<String, dynamic> json) {
+    return QuickAccessCategory(
       description: json['description'] ?? '',
-      content: json['content'] != null
-          ? List<dynamic>.from(json['content'])
-          : [],
-      commonCauses: json['common_causes'] != null
-          ? List<String>.from(json['common_causes'])
-          : [],
+      content: List<dynamic>.from(json['content'] ?? []),
     );
   }
 
   Map<String, dynamic> toJson() {
+    return {'description': description, 'content': content};
+  }
+}
+
+class ClinicalPracticeGuidelines {
+  final Map<String, Diagnosis> allDiagnoses;
+
+  ClinicalPracticeGuidelines({required this.allDiagnoses});
+
+  factory ClinicalPracticeGuidelines.fromJson(Map<String, dynamic> json) {
+    var diagnosesMap = <String, Diagnosis>{};
+    if (json['all_diagnoses'] != null) {
+      json['all_diagnoses'].forEach((key, value) {
+        diagnosesMap[key] = Diagnosis.fromJson(value, key: key);
+      });
+    }
+    return ClinicalPracticeGuidelines(allDiagnoses: diagnosesMap);
+  }
+
+  Map<String, dynamic> toJson() {
     return {
-      'description': description,
-      'content': content,
-      'common_causes': commonCauses,
+      'all_diagnoses': allDiagnoses.map(
+        (key, value) => MapEntry(key, value.toJson()),
+      ),
     };
   }
 }
 
 class Diagnosis {
-  final String key; // Add this field
+  final String key;
   final String name;
   final List<String> previousNames;
   final String description;
@@ -193,7 +218,7 @@ class Diagnosis {
   final List<String> outcomeMeasures;
 
   Diagnosis({
-    required this.key, // Add this parameter
+    required this.key,
     required this.name,
     required this.previousNames,
     required this.description,
@@ -213,31 +238,37 @@ class Diagnosis {
   factory Diagnosis.fromJson(Map<String, dynamic> json, {String key = ''}) {
     var modalitiesMap = <String, Modality>{};
     if (json['modalities'] != null) {
-      json['modalities'].forEach((key, value) {
-        modalitiesMap[key] = Modality.fromJson(value);
+      json['modalities'].forEach((mKey, value) {
+        modalitiesMap[mKey] = Modality.fromJson(value);
       });
     }
 
     return Diagnosis(
       key: key,
       name: json['name'],
-      previousNames: List<String>.from(json['previous_names']),
+      previousNames: List<String>.from(json['previous_names'] ?? []),
       description: json['description'],
-      prevalence: Prevalence.fromJson(json['prevalence']),
-      clinicalFindings: ClinicalFindings.fromJson(json['clinical_findings']),
-      physicalExam: PhysicalExam.fromJson(json['physical_exam']),
-      clinicalReasoning: ClinicalReasoning.fromJson(json['clinical_reasoning']),
-      movementFaults: MovementFaults.fromJson(json['movement_faults']),
+      prevalence: Prevalence.fromJson(json['prevalence'] ?? {}),
+      clinicalFindings: ClinicalFindings.fromJson(
+        json['clinical_findings'] ?? {},
+      ),
+      physicalExam: PhysicalExam.fromJson(json['physical_exam'] ?? {}),
+      clinicalReasoning: ClinicalReasoning.fromJson(
+        json['clinical_reasoning'] ?? {},
+      ),
+      movementFaults: MovementFaults.fromJson(json['movement_faults'] ?? {}),
       associatedImpairments: AssociatedImpairments.fromJson(
-        json['associated_impairments'],
+        json['associated_impairments'] ?? {},
       ),
       differentialDiagnosis: DifferentialDiagnosis.fromJson(
-        json['differential_diagnosis'],
+        json['differential_diagnosis'] ?? {},
       ),
-      interventions: Interventions.fromJson(json['interventions']),
-      patientEducation: PatientEducation.fromJson(json['patient_education']),
+      interventions: Interventions.fromJson(json['interventions'] ?? {}),
+      patientEducation: PatientEducation.fromJson(
+        json['patient_education'] ?? {},
+      ),
       modalities: modalitiesMap,
-      outcomeMeasures: List<String>.from(json['outcome_measures']),
+      outcomeMeasures: List<String>.from(json['outcome_measures'] ?? []),
     );
   }
 
@@ -271,8 +302,10 @@ class Prevalence {
 
   factory Prevalence.fromJson(Map<String, dynamic> json) {
     return Prevalence(
-      prevalenceStatistics: List<String>.from(json['prevalence_statistics']),
-      incidenceData: List<String>.from(json['incidence_data']),
+      prevalenceStatistics: List<String>.from(
+        json['prevalence_statistics'] ?? [],
+      ),
+      incidenceData: List<String>.from(json['incidence_data'] ?? []),
     );
   }
 
@@ -301,11 +334,13 @@ class ClinicalFindings {
 
   factory ClinicalFindings.fromJson(Map<String, dynamic> json) {
     return ClinicalFindings(
-      history: List<String>.from(json['history']),
-      reportedFindings: List<String>.from(json['reported_findings']),
-      examinationFindings: List<String>.from(json['examination_findings']),
-      primarySurvey: List<String>.from(json['primary_survey']),
-      secondarySurvey: List<String>.from(json['secondary_survey']),
+      history: List<String>.from(json['history'] ?? []),
+      reportedFindings: List<String>.from(json['reported_findings'] ?? []),
+      examinationFindings: List<String>.from(
+        json['examination_findings'] ?? [],
+      ),
+      primarySurvey: List<String>.from(json['primary_survey'] ?? []),
+      secondarySurvey: List<String>.from(json['secondary_survey'] ?? []),
     );
   }
 
@@ -327,7 +362,7 @@ class PhysicalExam {
 
   factory PhysicalExam.fromJson(Map<String, dynamic> json) {
     return PhysicalExam(
-      keyFindings: KeyFindings.fromJson(json['key_findings']),
+      keyFindings: KeyFindings.fromJson(json['key_findings'] ?? {}),
     );
   }
 
@@ -351,12 +386,12 @@ class KeyFindings {
 
   factory KeyFindings.fromJson(Map<String, dynamic> json) {
     return KeyFindings(
-      tests: List<String>.from(json['tests']),
+      tests: List<String>.from(json['tests'] ?? []),
       observationAndPalpation: List<String>.from(
-        json['observation_and_palpation'],
+        json['observation_and_palpation'] ?? [],
       ),
-      rangeOfMotion: List<String>.from(json['range_of_motion']),
-      irritability: List<String>.from(json['irritability']),
+      rangeOfMotion: List<String>.from(json['range_of_motion'] ?? []),
+      irritability: List<String>.from(json['irritability'] ?? []),
     );
   }
 
@@ -377,7 +412,7 @@ class ClinicalReasoning {
 
   factory ClinicalReasoning.fromJson(Map<String, dynamic> json) {
     return ClinicalReasoning(
-      assessments: List<String>.from(json['assessments']),
+      assessments: List<String>.from(json['assessments'] ?? []),
     );
   }
 
@@ -399,9 +434,9 @@ class MovementFaults {
 
   factory MovementFaults.fromJson(Map<String, dynamic> json) {
     return MovementFaults(
-      scapularFaults: List<String>.from(json['scapular_faults']),
-      humeralFaults: List<String>.from(json['humeral_faults']),
-      thoracicFaults: List<String>.from(json['thoracic_faults']),
+      scapularFaults: List<String>.from(json['scapular_faults'] ?? []),
+      humeralFaults: List<String>.from(json['humeral_faults'] ?? []),
+      thoracicFaults: List<String>.from(json['thoracic_faults'] ?? []),
     );
   }
 
@@ -421,7 +456,7 @@ class AssociatedImpairments {
 
   factory AssociatedImpairments.fromJson(Map<String, dynamic> json) {
     return AssociatedImpairments(
-      assessments: List<String>.from(json['assessments']),
+      assessments: List<String>.from(json['assessments'] ?? []),
     );
   }
 
@@ -437,7 +472,7 @@ class DifferentialDiagnosis {
 
   factory DifferentialDiagnosis.fromJson(Map<String, dynamic> json) {
     return DifferentialDiagnosis(
-      assessments: List<String>.from(json['assessments']),
+      assessments: List<String>.from(json['assessments'] ?? []),
     );
   }
 
@@ -459,11 +494,11 @@ class Interventions {
 
   factory Interventions.fromJson(Map<String, dynamic> json) {
     return Interventions(
-      manualTherapy: ManualTherapy.fromJson(json['manual_therapy']),
+      manualTherapy: ManualTherapy.fromJson(json['manual_therapy'] ?? {}),
       therapeuticExercises: TherapeuticExercises.fromJson(
-        json['therapeutic_exercises'],
+        json['therapeutic_exercises'] ?? {},
       ),
-      functionalMovement: List<String>.from(json['functional_movement']),
+      functionalMovement: List<String>.from(json['functional_movement'] ?? []),
     );
   }
 
@@ -487,8 +522,10 @@ class ManualTherapy {
 
   factory ManualTherapy.fromJson(Map<String, dynamic> json) {
     return ManualTherapy(
-      jointMobilizations: List<String>.from(json['joint_mobilizations']),
-      softTissueTechniques: List<String>.from(json['soft_tissue_techniques']),
+      jointMobilizations: List<String>.from(json['joint_mobilizations'] ?? []),
+      softTissueTechniques: List<String>.from(
+        json['soft_tissue_techniques'] ?? [],
+      ),
     );
   }
 
@@ -508,7 +545,7 @@ class TherapeuticExercises {
   factory TherapeuticExercises.fromJson(Map<String, dynamic> json) {
     return TherapeuticExercises(
       irritabilityLevels: IrritabilityLevels.fromJson(
-        json['irritability_levels'],
+        json['irritability_levels'] ?? {},
       ),
     );
   }
@@ -531,9 +568,9 @@ class IrritabilityLevels {
 
   factory IrritabilityLevels.fromJson(Map<String, dynamic> json) {
     return IrritabilityLevels(
-      high: List<String>.from(json['high']),
-      moderate: List<String>.from(json['moderate']),
-      low: List<String>.from(json['low']),
+      high: List<String>.from(json['high'] ?? []),
+      moderate: List<String>.from(json['moderate'] ?? []),
+      low: List<String>.from(json['low'] ?? []),
     );
   }
 
@@ -557,10 +594,10 @@ class PatientEducation {
 
   factory PatientEducation.fromJson(Map<String, dynamic> json) {
     return PatientEducation(
-      whatsGoingOn: List<String>.from(json['whats_going_on']),
-      howLongWillItTake: List<String>.from(json['how_long_will_it_take']),
-      whatWeWillDo: List<String>.from(json['what_we_will_do']),
-      whatYouCanDo: List<String>.from(json['what_you_can_do']),
+      whatsGoingOn: List<String>.from(json['whats_going_on'] ?? []),
+      howLongWillItTake: List<String>.from(json['how_long_will_it_take'] ?? []),
+      whatWeWillDo: List<String>.from(json['what_we_will_do'] ?? []),
+      whatYouCanDo: List<String>.from(json['what_you_can_do'] ?? []),
     );
   }
 
@@ -601,21 +638,25 @@ class Modality {
     var cuesMap = <String, String>{};
     if (json['cues'] != null) {
       json['cues'].forEach((key, value) {
-        cuesMap[key] = value;
+        cuesMap[key] = value.toString();
       });
     }
 
     return Modality(
-      purpose: List<String>.from(json['purpose']),
-      gradeOfRecommendation: List<String>.from(json['grade_of_recommendation']),
-      info: List<String>.from(json['info']),
-      associatedIcfCategory: List<String>.from(json['associated_icf_category']),
-      patientPosition: List<String>.from(json['patient_position']),
-      therapistPosition: List<String>.from(json['therapist_position']),
+      purpose: List<String>.from(json['purpose'] ?? []),
+      gradeOfRecommendation: List<String>.from(
+        json['grade_of_recommendation'] ?? [],
+      ),
+      info: List<String>.from(json['info'] ?? []),
+      associatedIcfCategory: List<String>.from(
+        json['associated_icf_category'] ?? [],
+      ),
+      patientPosition: List<String>.from(json['patient_position'] ?? []),
+      therapistPosition: List<String>.from(json['therapist_position'] ?? []),
       cues: cuesMap,
-      additionalInfo: List<String>.from(json['additional_info']),
+      additionalInfo: List<String>.from(json['additional_info'] ?? []),
       relatedObjectiveMeasurement: List<String>.from(
-        json['related_objective_measurement'],
+        json['related_objective_measurement'] ?? [],
       ),
     );
   }

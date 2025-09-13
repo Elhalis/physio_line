@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:physio_line/src/core/constants/app_strings.dart';
 import 'package:physio_line/src/presentation/widget/svg_picture.dart';
-import 'package:physio_line/src/presentation/widget/text.dart';
+import 'package:physio_line/src/presentation/widget/text/text.dart';
 
 class ImageTile extends StatelessWidget {
   const ImageTile({
@@ -19,7 +19,14 @@ class ImageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(path),
+      onTap: () {
+        assert(() {
+          // ignore: avoid_print
+          print('[NAV] img_tile -> push: $path');
+          return true;
+        }());
+        context.push(path);
+      },
       hoverColor: Colors.grey[100],
       child: Container(
         padding: EdgeInsetsDirectional.symmetric(vertical: 16.0),
@@ -46,7 +53,7 @@ class ImageTile extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   spacing: 12,
                   children: [
-                    PrimaryText(title: title,),
+                    PrimaryText(title: title),
 
                     Text(
                       "Explore",
@@ -62,7 +69,7 @@ class ImageTile extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 8),
-            SvgIcon(assetPath: Constants.openFolder,color: Colors.grey),
+            SvgIcon(assetPath: Constants.openFolder, color: Colors.grey),
           ],
         ),
       ),

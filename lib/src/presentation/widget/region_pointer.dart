@@ -22,6 +22,11 @@ class RegionPointer extends StatelessWidget {
       child: IconButton(
         onPressed: isEnabled
             ? () {
+                assert(() {
+                  // ignore: avoid_print
+                  print('[NAV] region_pointer -> push: $path');
+                  return true;
+                }());
                 context.push(path);
               }
             : null,
